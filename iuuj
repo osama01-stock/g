@@ -1,1 +1,4 @@
-loadstring(game:HttpGet(""))();
+loadstring(game:HttpGet("https://raw.githubusercontent.com/osama01-stock/g/refs/heads/main/d"))();
+
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/osama01-stock/g/refs/heads/main/g"))();
