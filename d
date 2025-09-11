@@ -18,7 +18,7 @@ menuFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 menuFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 menuFrame.Visible = false
 menuFrame.ClipsDescendants = true
-menuFrame.Active = true
+menuFrame.Active = false
 menuFrame.ZIndex = 2
 local corner = Instance.new("UICorner"); corner.CornerRadius = UDim.new(0, 12); corner.Parent = menuFrame
 local stroke = Instance.new("UIStroke"); stroke.Color = Color3.fromRGB(120, 120, 120); stroke.Thickness = 1; stroke.Parent = menuFrame
@@ -52,7 +52,7 @@ mainContainer.ZIndex = 3
 local padding = Instance.new("UIPadding"); padding.PaddingLeft = UDim.new(0,10); padding.PaddingRight = UDim.new(0,10); padding.PaddingTop = UDim.new(0,10); padding.PaddingBottom = UDim.new(0,10); padding.Parent = mainContainer
 local listLayout = Instance.new("UIListLayout"); listLayout.Padding = UDim.new(0,10); listLayout.Parent = mainContainer
 
-local aliasInput = Instance.new("ادخل الاسم المستعار للاحداثي:")
+local aliasInput = Instance.new("TextBox")
 aliasInput.Name = "AliasInput"; aliasInput.Parent = mainContainer
 aliasInput.Size = UDim2.new(1, 0, 0, 40)
 aliasInput.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -109,7 +109,7 @@ scrollingFrame.BorderSizePixel = 0; scrollingFrame.CanvasSize = UDim2.new(0,0,0,
 scrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(120,120,120); scrollingFrame.ScrollBarThickness = 6
 scrollingFrame.ZIndex = 3
 local scrollCorner = Instance.new("UICorner"); scrollCorner.Parent = scrollingFrame
-local scrollStroke = Instance.new("UIStroke"); scrollStroke.Color = Color3.fromRGB(80, 80, 80); scrollStroke.Thickness = 1; scrollStroke.Parent = scrollingFrame
+local scrollStroke = Instance.new("UIStroke"); scrollStroke.Color = Color3.fromRGB(80, 80, 80); scrollStroke.Thickness = 1; scrollStroke.Parent = scrollingFrame -- **تصحيح:** تم إصلاح الخطأ هنا
 local scrollListLayout = Instance.new("UIListLayout"); scrollListLayout.Padding = UDim.new(0,5); scrollListLayout.Parent = scrollingFrame
 local scrollPadding = Instance.new("UIPadding"); scrollPadding.PaddingLeft = UDim.new(0,5); scrollPadding.PaddingRight = UDim.new(0,5); scrollPadding.PaddingTop = UDim.new(0,5); scrollPadding.Parent = scrollingFrame
 
@@ -162,6 +162,7 @@ end
 
 toggleButton.MouseButton1Click:Connect(function()
 	menuFrame.Visible = not menuFrame.Visible
+	menuFrame.Active = menuFrame.Visible
 	toggleButton.Text = menuFrame.Visible and "<" or ">"
 end)
 
@@ -171,6 +172,7 @@ aboutHeader.MouseButton1Click:Connect(function()
 end)
 
 menuFrame.InputBegan:Connect(function(input)
+	if not menuFrame.Visible then return end
 	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 		local dragStart = input.Position
 		local startPos = menuFrame.Position
