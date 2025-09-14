@@ -1,1 +1,29 @@
 
+local function addHighlight(character)
+  if character and not character:FindFirstChildOfClass("Highlight") then
+    local highlight = Instance.new("Highlight")
+    
+    highlight.FillColor = Color3.fromRGB(255, 255, 0)
+    highlight.OutlineColor = Color3.fromRGB(0, 0, 0)
+    highlight.FillTransparency = 0.3
+    highlight.OutlineTransparency = 0
+    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+    
+    highlight.Parent = character
+  end
+end
+
+local players = game:GetService("Players")
+
+for _, player in ipairs(players:GetPlayers()) do
+  player.CharacterAdded:Connect(addHighlight)
+  if player.Character then
+    addHighlight(player.Character)
+  end
+end
+
+players.PlayerAdded:Connect(function(player)
+  player.CharacterAdded:Connect(addHighlight)
+end)
+
+print("تم تفعيل سكربت الهايلايت لجميع اللاعبين.")
